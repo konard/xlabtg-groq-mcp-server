@@ -75,15 +75,15 @@ mcp = FastMCP("groq-mcp")
 
 # TTS wrapper with MCP decoration
 @mcp.tool(
-    description="""Convert text to speech using Groq's TTS model and save the output audio file to a given directory.
+    description="""Convert text to speech using Groq's Orpheus TTS model and save the output audio file to a given directory.
     Directory is optional, if not provided, the output file will be saved to $HOME/Desktop.
-    
+
     ⚠️ COST WARNING: This tool makes an API call to Groq which may incur costs. Only use when explicitly requested by the user.
 
     Args:
-        text: The text to convert to speech (maximum 10,000 characters)
-        voice: The voice to use for the audio generation
-        model: The TTS model to use ("playai-tts" for English, "playai-tts-arabic" for Arabic)
+        text: The text to convert to speech (maximum 200 characters). The English model supports vocal directions in brackets, e.g. [cheerful], [whisper].
+        voice: The voice to use for the audio generation (English: Autumn, Diana, Hannah, Austin, Daniel, Troy; Arabic: Fahad, Sultan, Lulwa, Noura)
+        model: The TTS model to use ("canopylabs/orpheus-v1-english" for English, "canopylabs/orpheus-arabic-saudi" for Arabic)
         output_directory: Directory where files should be saved (defaults to $HOME/Desktop if not provided)
 
     Returns:
@@ -92,8 +92,8 @@ mcp = FastMCP("groq-mcp")
 )
 def text_to_speech(
     text: str,
-    voice: str = "Arista-PlayAI",
-    model: Literal["playai-tts", "playai-tts-arabic"] = "playai-tts",
+    voice: str = "Autumn",
+    model: Literal["canopylabs/orpheus-v1-english", "canopylabs/orpheus-arabic-saudi"] = "canopylabs/orpheus-v1-english",
     output_directory: str | None = None,
 ) -> TextContent:
     # Call the core function from the imported module
@@ -103,17 +103,17 @@ def text_to_speech(
 
 # Voice listing wrapper with MCP decoration
 @mcp.tool(
-    description="""List all available voices for Groq's TTS models.
-    
+    description="""List all available voices for Groq's Orpheus TTS models.
+
     Args:
-        model: Specify which model's voices to list ("playai-tts" for English, "playai-tts-arabic" for Arabic, or "all" for both)
-        
+        model: Specify which model's voices to list ("canopylabs/orpheus-v1-english" for English, "canopylabs/orpheus-arabic-saudi" for Arabic, or "all" for both)
+
     Returns:
         Text content with the list of available voices.
     """
 )
 def list_voices(
-    model: Literal["playai-tts", "playai-tts-arabic", "all"] = "all"
+    model: Literal["canopylabs/orpheus-v1-english", "canopylabs/orpheus-arabic-saudi", "all"] = "all"
 ) -> TextContent:
     # Call the core function from the imported module and return the TextContent object directly
     return run_list_voices(model)
