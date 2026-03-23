@@ -38,11 +38,11 @@ groq_client = httpx.Client(
 
 # Define available voices for Orpheus models
 ENGLISH_VOICES = [
-    "Autumn", "Diana", "Hannah",
-    "Austin", "Daniel", "Troy"
+    "autumn", "diana", "hannah",
+    "austin", "daniel", "troy"
 ]
 
-ARABIC_VOICES = ["Fahad", "Sultan", "Lulwa", "Noura"]
+ARABIC_VOICES = ["fahad", "sultan", "lulwa", "noura"]
 
 ALL_VOICES = ENGLISH_VOICES + ARABIC_VOICES
 
